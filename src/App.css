@@ -1,0 +1,50 @@
+.App {
+max-width: 860px;
+margin: 40px auto;
+}
+:root{
+  --index:calc(1vw + 1vh);
+
+}
+button{
+  width: 20%;
+  background: #fff;
+  border: 2px solid #2B7A78;
+  padding: 1% 4%;
+  border-radius: 40px;
+  color: #2B7A78;
+  font-weight: bold;
+  font-style: 1rem;
+  font-size: calc(var(--index)/1.5);
+  cursor: pointer;
+}
+buttons{
+  width: 25%;
+  background: #fff;
+  border: 2px solid #2B7A78;
+  padding: 1% 4%;
+  border-radius: 40px;
+  color: #2B7A78;
+  font-weight: bold;
+  font-style: 1rem;
+  font-size: calc(var(--index)/1.5);
+  cursor: pointer;
+}
+button:hover{
+  background-color: #2B7A78;
+  color: #17252A;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  border: 0px;
+}
+.card-grid{
+  margin-top:5%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-gap:10px
+}
+#head{
+  transition: ease-in .5s;
+}
+#head:hover{
+  color: white;
+}
