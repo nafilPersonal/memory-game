@@ -4,16 +4,16 @@ import SingleCard from './component/SingleCard'
 import Swal from 'sweetalert2'
 
 const cardImages = [
-  { "src": "/img/circle.png", matched: false },
-  { "src": "/img/oval.png", matched: false },
-  { "src": "/img/pentagon.png", matched: false },
-  { "src": "/img/rectangle.png", matched: false },
-  { "src": "/img/square.png", matched: false },
-  { "src": "/img/triangle.png", matched: false },
-  { "src": "/img/octagon.png", matched: false },
-  { "src": "/img/parallallogram.png", matched: false },
-  { "src": "/img/Rhombus.png", matched: false },
-  { "src": "/img/trapezoid.png", matched: false },
+  { "src": "/img/Beetroot.jpg", matched: false },
+  { "src": "/img/Brinjal.jpg", matched: false },
+  { "src": "/img/Capsicum.jpg", matched: false },
+  { "src": "/img/Onion.jpg", matched: false },
+  { "src": "/img/Carrot.jpg", matched: false },
+  { "src": "/img/Potato.jpg", matched: false },
+  { "src": "/img/Tomato.jpg", matched: false },
+  { "src": "/img/Callyflower.jpg", matched: false },
+  // { "src": "/img/Rhombus.png", matched: false },
+  // { "src": "/img/trapezoid.png", matched: false },
 ]
 
 function App() {
