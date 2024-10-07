@@ -1,0 +1,42 @@
+.hearts-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 50px;
+  }
+  
+  .heart {
+    transition: all 0.5s ease;
+  }
+  
+  .heart.inactive {
+    transform: scale(0.9);
+    opacity: 0.6;
+  }
+  
+  .heart.active {
+    filter: drop-shadow(0 0 2px rgba(255, 0, 0, 0.2));
+  }
+  
+  .heart-beat {
+    animation: heartBeat 1.3s ease-in-out infinite;
+  }
+  
+  @keyframes heartBeat {
+    0% {
+      transform: scale(1);
+    }
+    14% {
+      transform: scale(1.2);
+    }
+    28% {
+      transform: scale(1);
+    }
+    42% {
+      transform: scale(1.2);
+    }
+    70% {
+      transform: scale(1);
+    }
+  }
