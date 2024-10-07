@@ -25,16 +25,15 @@ function App() {
   const [test, setTest] = useState(false);
   const [bestScore, setBestScore] = useState(0);
   const maxTurns = 5;
+  const [mistakes, setMistakes] = useState(0); /* added state for mistake*/
   const [showStartMessage, setShowStartMessage] = useState(true);
 
-  // Handle card selection
   const handleChoice = (card) => {
     if (!disabled) {
       choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
     }
   };
 
-  // Show completion message
   const message = () => {
     Swal.fire({
       title: `Your turns: ${turns}`,
@@ -42,7 +41,6 @@ function App() {
       imageUrl: '/img/completedTask.png',
       imageWidth: 400,
       imageHeight: 200,
-      imageAlt: 'Task Completed',
       confirmButtonText: 'New Game',
       confirmButtonColor: '#2B7A78',
       showCancelButton: true,
@@ -55,13 +53,11 @@ function App() {
     });
   };
 
-  // Show quit/incomplete message
   const messageToQuit = () => {
     Swal.fire({
       imageUrl: '/img/notCompleted.png',
       imageWidth: 400,
       imageHeight: 200,
-      imageAlt: 'Task Not Completed',
       confirmButtonText: 'Reset',
       confirmButtonColor: '#2B7A78',
       showCancelButton: true,
@@ -74,14 +70,12 @@ function App() {
     });
   };
 
-  // Check if all cards are matched
   const checkResult = () => {
     const allMatched = cards.every(card => card.matched);
     setTest(allMatched);
     return allMatched;
   };
 
-  // Check best score and show appropriate message
   const checkBest = () => {
     if (test) {
       message();
@@ -90,7 +84,6 @@ function App() {
     }
   };
 
-  // Update best score when game is completed
   useEffect(() => {
     if (test) {
       if (bestScore === 0 || turns < bestScore) {
@@ -99,7 +92,6 @@ function App() {
     }
   }, [test, turns, bestScore]);
 
-  // Reset choices & increase turn count
   const resetTurn = () => {
     setChoiceOne(null);
     setChoiceTwo(null);
@@ -107,11 +99,10 @@ function App() {
     setDisabled(false);
   };
 
-  // Compare selected cards
   useEffect(() => {
     if (choiceOne && choiceTwo) {
       setDisabled(true);
-      
+
       if (turns < maxTurns) {
         if (choiceOne.src === choiceTwo.src) {
           setCards(prevCards => {
@@ -125,6 +116,7 @@ function App() {
           });
           resetTurn();
         } else {
+          setMistakes(prevMistakes => prevMistakes + 1); // Increment mistakes
           setTimeout(() => resetTurn(), 1000);
         }
       } else {
@@ -142,7 +134,6 @@ function App() {
     }
   }, [choiceOne, choiceTwo]);
 
-  // Shuffle cards
   const shuffleCards = () => {
     setShowStartMessage(false);
     setAllFlipCard(true);
@@ -155,15 +146,14 @@ function App() {
     setChoiceOne(null);
     setChoiceTwo(null);
     setTest(false);
-    
+    setMistakes(0); // Reset mistakes
+
     setTimeout(() => {
       setAllFlipCard(false);
     }, 5700);
   };
 
-  // Start game automatically
   useEffect(() => {
-    // Show welcome message on first load
     if (showStartMessage) {
       Swal.fire({
         title: 'Welcome to Magic Match!',
@@ -181,7 +171,6 @@ function App() {
     }
   }, []);
 
-  // Hearts display component
   const HeartsDisplay = ({ total, remaining }) => {
     return (
       <div className="hearts-container">
@@ -222,13 +211,8 @@ function App() {
 
       <HeartsDisplay 
         total={maxTurns} 
-        remaining={maxTurns - turns}
+        remaining={maxTurns - mistakes}
       />
-
-      {/* <div className="turns-counter">
-        <p>Turns left: {maxTurns - turns}</p>
-        {bestScore > 0 && <p>Best Score: {bestScore}</p>}
-      </div> */}
     </div>
   );
 }
