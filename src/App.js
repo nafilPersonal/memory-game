@@ -25,7 +25,7 @@ function App() {
   const [test, setTest] = useState(false);
   const [bestScore, setBestScore] = useState(0);
   const maxTurns = 5;
-  const [mistakes, setMistakes] = useState(0); /* added state for mistake*/
+  const [mistakes, setMistakes] = useState(0);
   const [showStartMessage, setShowStartMessage] = useState(true);
 
   const handleChoice = (card) => {
@@ -103,7 +103,7 @@ function App() {
     if (choiceOne && choiceTwo) {
       setDisabled(true);
 
-      if (turns < maxTurns) {
+      if (mistakes < maxTurns) {
         if (choiceOne.src === choiceTwo.src) {
           setCards(prevCards => {
             return prevCards.map(card => {
@@ -116,8 +116,22 @@ function App() {
           });
           resetTurn();
         } else {
-          setMistakes(prevMistakes => prevMistakes + 1); // Increment mistakes
+          setMistakes(prevMistakes => prevMistakes + 1);
           setTimeout(() => resetTurn(), 1000);
+        }
+
+        const isWin = checkResult();
+        console.log(isWin);
+        if (isWin) {
+          Swal.fire({
+            title: 'Congratulations!',
+            text: 'You have matched all pairs successfully!',
+            icon: 'success',
+            confirmButtonText: 'Play Again',
+            confirmButtonColor: '#2B7A78',
+          }).then(() => {
+            shuffleCards();
+          });
         }
       } else {
         Swal.fire({
@@ -130,7 +144,6 @@ function App() {
           shuffleCards();
         });
       }
-      checkResult();
     }
   }, [choiceOne, choiceTwo]);
 
@@ -146,7 +159,7 @@ function App() {
     setChoiceOne(null);
     setChoiceTwo(null);
     setTest(false);
-    setMistakes(0); // Reset mistakes
+    setMistakes(0);
 
     setTimeout(() => {
       setAllFlipCard(false);
@@ -192,7 +205,7 @@ function App() {
     <div className="App container">
       <h1 id='head' className='mt-5 mb-5'>Magic Match</h1>
       
-      <div style={{ display: "flex", justifyContent: "center", gap: "20px" }}>
+      <div style={{ display: "flex", justifyContent: "center", gap: "20px" }}> 
         <button onClick={shuffleCards}>New Game</button>
         <button onClick={checkBest}>Check Result</button>
       </div>
